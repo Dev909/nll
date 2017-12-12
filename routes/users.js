@@ -8,8 +8,22 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/add', function(req, res, next) {
-    DB.Users.add(req, res, function(result) {
-        res.json(result);
+    DB.Users.add(req, res, function(err, result) {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(result);
+        }
+    });
+});
+
+router.delete('/delete', function(req, res, next) {
+    DB.Users.delete(req, res, function(err, result) {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(result);
+        }
     });
 });
 
