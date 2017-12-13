@@ -6,4 +6,10 @@
 - Do 'npm update'
 - Write code
 
+**Quick Links**
+
+- Slack (https://nll-server.slack.com/)
+- Github (https://github.com/Dev909/nll)
+
+
 I'll write a better guide later
