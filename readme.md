@@ -12,4 +12,7 @@
 - Github (https://github.com/Dev909/nll)
 
 
+Make sure to check the Slack server regularly
+
+
 I'll write a better guide later
