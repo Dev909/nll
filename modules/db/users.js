@@ -4,29 +4,15 @@ var ObjectID = require('mongodb').ObjectID;
 module.exports = function(DBUsers, col_users) {
 
     //Add user to DB
-    DBUsers.add = function(req, res, callback) {
-        var row = {
-            username: req.body.username,
-            password: req.body.password,
-            email: req.body.email,
-            usertype: 'user'
-        };
-
-        if (Object.keys(row).length !== 4) {
-            console.warn("[DBUsers] Add", "Not enough parameters (" + Object.keys(row).length + ")");
-            callback({status: 'fail', message: '[Users] Add - Not enough parameters'});
-        }
-
-        col_users.insert(row, function(err, result) {
+    DBUsers.add = function(query, callback) {
+        col_users.insertOne(query, function(err, result) {
             if (err) {
                 console.error("[DBUsers]", err.message);
-                callback({status: 'fail', message: '[Users] Add - MongoDB error'});
+                return callback({status: 'fail', message: '[Users] Add - MongoDB error'}, null);
             }
-            callback({
-                status: 'ok',
-                message: '[Users] Add - Successful'},
-                {data: result.ops[0]}
-            );
+            if (result.result.n === 1 && result.result.ok === 1) {
+                return callback(null, result.ops[0]._id);
+            }
         });
     };
 

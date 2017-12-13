@@ -8,7 +8,18 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/add', function(req, res, next) {
-    DB.Users.add(req, res, function(err, result) {
+    var row = {
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        usertype: 'user'
+    };
+
+    if (Object.keys(row).length !== 4) {
+        console.warn("[DBUsers] Add", "Not enough parameters (" + Object.keys(row).length + ")");
+        callback({status: 'fail', message: '[Users] Add - Not enough parameters'});
+    }
+    DB.Users.add(row, function(err, result) {
         if (err) {
             res.json(err);
         } else {
