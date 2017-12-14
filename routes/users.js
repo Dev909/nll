@@ -21,4 +21,11 @@ router.post('/add', function(req, res, next) {
     });
 });
 
+router.delete('/delete', function(req, res, next) {
+    mgdb.models.User.remove({_id: req.body._id}, function(err, r) {
+        if (err) return res.json(err);
+        return res.json(r);
+    });
+});
+
 module.exports = router;
