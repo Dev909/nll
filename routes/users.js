@@ -4,8 +4,18 @@ var mgdb = require('../modules/mginit');
 
 
 /* GET users.js listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/findById', function(req, res, next) {
+    mgdb.models.User.findById(req.body._id, function(err, r) {
+       if (err) return res.json(err);
+       return res.json(r);
+    });
+});
+
+router.get('/find', function(req, res, next) {
+    mgdb.models.User.find(req.body, function(err, r) {
+        if (err) return res.json(err);
+        return res.json(r);
+    });
 });
 
 router.post('/add', function(req, res, next) {
@@ -27,5 +37,6 @@ router.delete('/delete', function(req, res, next) {
         return res.json(r);
     });
 });
+
 
 module.exports = router;
